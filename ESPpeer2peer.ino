@@ -30,6 +30,9 @@ struct_message TxButton;
 // Create a struct_message to hold incoming button (to turn on this LED)
 struct_message RxButton;   //I.E. = incomingReadings
 
+// Register peer
+    esp_now_peer_info_t peerInfo;
+
 void setup() {
     M5.begin();
     Serial.begin(115200);
@@ -43,8 +46,7 @@ void setup() {
     }
     // get the status of Trasnmitted packet
     esp_now_register_send_cb(OnDataSent);
-    // Register peer
-    esp_now_peer_info_t peerInfo;
+    
     memcpy(peerInfo.peer_addr, broadcastAddress, 6);
     peerInfo.channel = 0;
     peerInfo.encrypt = false;
