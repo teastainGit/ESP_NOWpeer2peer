@@ -1,4 +1,6 @@
-//determine this MAC address by download this sketch first and copying the MAC info
+//This example is for M5Stack StickCPlus, for a bare DevKit you would have to swap the 
+// continued "M5.BtnA.wasPressed(): with digital read commands
+//determine this MAC address by download this sketch first and copy the MAC info
 //from the connect info at the begining of sketch load.
 /*i.e.
  esptool.py v3.0-dev
@@ -10,17 +12,19 @@ VRef calibration in efuse, Coding Scheme None
 Crystal is 40MHz
 MAC: 94:b9:7e:8c:7c:e8
  */
-#include <M5StickCPlus.h>
+#include <M5StickCPlus.h>  //remove if not StickCPlus !!!
 #include <esp_now.h>
 #include <WiFi.h>
 #define LED 10
-//Adress of OTHER unit        MAC: 94:b9:7e:8c:b9:7c
+//Adress of OTHER unit        MAC: 94:b9:7e:8c:b9:7c  
 uint8_t broadcastAddress[] = {0x94, 0xB9, 0x7E, 0x8C, 0xB9, 0x7c};
 
 String success;
 
 //Structure example to send data
-//Must match the receiver structure  Button.State.Button
+//Must match the receiver structure  Button.State
+//example "digitalWrite (LED, RxButton.State);"
+//example "TxButton.State = !M5.BtnA.wasPressed();"
 typedef struct struct_message {
     bool State;
 } struct_message;
@@ -34,7 +38,7 @@ struct_message RxButton;   //I.E. = incomingReadings
     esp_now_peer_info_t peerInfo;
 
 void setup() {
-    M5.begin();
+    M5.begin();  //remove if not M5 board!!!
     Serial.begin(115200);
     pinMode (LED, OUTPUT);
     digitalWrite(LED, HIGH);
@@ -62,7 +66,7 @@ void setup() {
 
 void loop() {
     M5.update();
-    TxButton.State = !M5.BtnA.wasPressed();
+    TxButton.State = !M5.BtnA.wasPressed(); //***this is where you tramsmit this units button state
     esp_err_t result = esp_now_send(broadcastAddress, (uint8_t *) &TxButton, sizeof(TxButton));
     if (result == ESP_OK) {
         Serial.println("Sent with success");
@@ -79,7 +83,7 @@ void OnDataRecv(const uint8_t * mac, const uint8_t *incomingData, int len)
     memcpy(&RxButton, incomingData, sizeof(RxButton));
     Serial.print("Bytes received: ");
     Serial.println(len);
-    digitalWrite (LED, RxButton.State);
+    digitalWrite (LED, RxButton.State);//***this is where you receive the state of the other unit's button
 }
 
 void OnDataSent(const uint8_t *mac_addr, esp_now_send_status_t status)
