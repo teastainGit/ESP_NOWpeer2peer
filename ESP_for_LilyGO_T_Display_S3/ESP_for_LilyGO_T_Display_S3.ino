@@ -2,9 +2,8 @@
 #include <esp_now.h>
 #include <WiFi.h>
 #define topbutton 0
-#define lowerbutton 14
-#define PIN_POWER_ON 15  // LCD and battery Power Enable
-#define PIN_LCD_BL 38    // BackLight enable pin (see Dimming.txt)
+#define PIN_POWER_ON 15  // LCD and battery Power Enable !
+#define PIN_LCD_BL 38    // BackLight enable pin
 //Adress of other ESP board
 uint8_t broadcastAddress[] = { 0x94, 0xB9, 0x7E, 0x8C, 0xB9, 0x7C };
 
