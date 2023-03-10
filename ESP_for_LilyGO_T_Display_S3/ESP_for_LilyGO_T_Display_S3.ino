@@ -7,7 +7,7 @@
 #define PIN_LCD_BL 38    // BackLight enable pin (see Dimming.txt)
 //Adress of other ESP board
 uint8_t broadcastAddress[] = { 0x94, 0xB9, 0x7E, 0x8C, 0xB9, 0x7C };
-bool ticktock = true;
+
 String success;
 
 //Structure example to send data
@@ -28,9 +28,8 @@ esp_now_peer_info_t peerInfo;
 
 void setup() {
 
-  pinMode(PIN_POWER_ON, OUTPUT);  //triggers the LCD backlight
-  pinMode(PIN_LCD_BL, OUTPUT);    // BackLight enable pin
-  pinMode(lowerbutton, INPUT);    //Right button pulled up, push = 0
+  pinMode(PIN_POWER_ON, OUTPUT);  //triggers the LCD backlight if you add graphics!
+  pinMode(PIN_LCD_BL, OUTPUT);    // BackLight enable pin if you add graphics!
   pinMode(topbutton, INPUT);      //Left button  pulled up, push = 0
   delay(100);
   digitalWrite(PIN_POWER_ON, HIGH);
