@@ -1,5 +1,5 @@
 //This example is for M5Stack StickCPlus, for a bare DevKit you would have to swap the 
-// continued "M5.BtnA.wasPressed(): with digital read commands
+// continued "M5.BtnA.isPressed(): with digital read commands
 //determine this MAC address by download this sketch first and copy the MAC info
 //from the connect info at the begining of sketch load.
 /*i.e.
@@ -66,7 +66,7 @@ void setup() {
 
 void loop() {
     M5.update();
-    TxButton.State = !M5.BtnA.wasPressed(); //***this is where you tramsmit this units button state
+    TxButton.State = !M5.BtnA.isPressed(); //***this is where you tramsmit this units button state
     esp_err_t result = esp_now_send(broadcastAddress, (uint8_t *) &TxButton, sizeof(TxButton));
     if (result == ESP_OK) {
         Serial.println("Sent with success");
