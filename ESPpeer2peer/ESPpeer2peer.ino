@@ -10,14 +10,14 @@ Chip is ESP32-PICO-D4 (revision 1)
 Features: WiFi, BT, Dual Core, 240MHz, Embedded Flash,
 VRef calibration in efuse, Coding Scheme None
 Crystal is 40MHz
-MAC: 94:b9:7e:8c:7c:e8
+MAC: 94:b9:7e:8c:7c:e8 
  */
 #include <M5StickCPlus.h>  //remove if not StickCPlus !!!
 #include <esp_now.h>
 #include <WiFi.h>
 #define LED 10
-//Adress of OTHER unit        MAC: 94:b9:7e:8c:b9:7c
-uint8_t broadcastAddress[] = { 0x94, 0xB9, 0x7E, 0x8C, 0xB9, 0x7c };
+//Adress of OTHER unit     MAC: 68:   b6:    b3:   22:   4c:   6c. (my T-Display S3)
+uint8_t broadcastAddress[] = { 0x68, 0xB6, 0xB3, 0x22, 0x4C, 0x6C };
 
 String success;
 
