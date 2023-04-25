@@ -4,7 +4,7 @@
  I was interested In ESP peer to peer with no client/server, no WiFi router login, not IoT (!!!)
 I ran across a tutorial for "esp_now" and with some difficulty and learning curve I got two M5Stack
  devices talking peer to peer, perfectly!
-I have created a dozen projects from the simple example below to a JoyC joystick controlling a 
+I have created a dozen projects from the simple example above to a JoyC joystick controlling a 
 RoverC and many other applications.
 I made a HVAC controller with wireless reading of duct temperature, transmitted to the Core Basic and
  in turn the Core transmitting the RC Servo angle for vent damper control...well, this Is how!
