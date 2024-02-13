@@ -1,5 +1,4 @@
-//This example is for M5Stack StickCPlus, for a bare DevKit you would have to swap the
-// continued "M5.BtnA.isPressed(): with digital read commands
+
 //determine this MAC address by download this sketch first and copy the MAC info
 //from the connect info at the begining of sketch load.
 /*i.e.
@@ -10,14 +9,18 @@ Chip is ESP32-PICO-D4 (revision 1)
 Features: WiFi, BT, Dual Core, 240MHz, Embedded Flash,
 VRef calibration in efuse, Coding Scheme None
 Crystal is 40MHz
-MAC: 94:b9:7e:8c:7c:e8 
+MAC: 94:b9:7e:8c:7c:e8  1f6 
+
  */
-#include <M5StickCPlus.h>  //remove if not StickCPlus !!!
+#include <Arduino.h>
 #include <esp_now.h>
 #include <WiFi.h>
-#define LED 10
+#define LED 10  // or whatever you have
+#define Button 37
 //Adress of OTHER unit     MAC: 68:   b6:    b3:   22:   4c:   6c. (my T-Display S3)
-uint8_t broadcastAddress[] = { 0x68, 0xB6, 0xB3, 0x22, 0x4C, 0x6C };
+//Adress of OTHER unit 94:b9:7e:8c:b9:7c  EA6
+//Adress of OTHER unit 94:b9:7e:8c:7c:e8  1f6
+uint8_t broadcastAddress[] = { 0x94, 0xB9, 0x7E, 0x8C, 0xB9, 0x7C };
 
 String success;
 
@@ -38,10 +41,10 @@ struct_message RxButton;  //I.E. = incomingReadings
 esp_now_peer_info_t peerInfo;
 
 void setup() {
-  M5.begin();  //remove if not M5 board!!!
   Serial.begin(115200);
   pinMode(LED, OUTPUT);
   digitalWrite(LED, HIGH);
+  pinMode(Button, INPUT);
   WiFi.mode(WIFI_STA);
   // Init ESP-NOW
   if (esp_now_init() != ESP_OK) {
@@ -65,8 +68,8 @@ void setup() {
 }
 
 void loop() {
-  M5.update();
-  TxButton.State = !M5.BtnA.isPressed();  //***this is where you tramsmit this units button state
+
+  TxButton.State = digitalRead(Button);  //***this is where you tramsmit this units button state
   esp_err_t result = esp_now_send(broadcastAddress, (uint8_t *)&TxButton, sizeof(TxButton));
   if (result == ESP_OK) {
     Serial.println("Sent with success");
