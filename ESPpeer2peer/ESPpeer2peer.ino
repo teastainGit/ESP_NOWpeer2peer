@@ -1,33 +1,12 @@
-
-//determine this MAC address by download this sketch first and copy the MAC info
-//from the connect info at the begining of sketch load.
-/*i.e.
- esptool.py v3.0-dev
-Serial port /dev/cu.usbserial-75522271F6
-Connecting....
-Chip is ESP32-PICO-D4 (revision 1)
-Features: WiFi, BT, Dual Core, 240MHz, Embedded Flash,
-VRef calibration in efuse, Coding Scheme None
-Crystal is 40MHz
-MAC: 94:b9:7e:8c:7c:e8  1f6 
-
- */
-#include <Arduino.h>
 #include <esp_now.h>
 #include <WiFi.h>
-#define LED 10  // or whatever you have
-#define Button 37
-//Adress of OTHER unit     MAC: 68:   b6:    b3:   22:   4c:   6c. (my T-Display S3)
-//Adress of OTHER unit 94:b9:7e:8c:b9:7c  EA6
-//Adress of OTHER unit 94:b9:7e:8c:7c:e8  1f6
+#define LED 10     // or whatever you have
+#define Button 37  // or whatever you have
+//Address of THIS unit below:
 uint8_t broadcastAddress[] = { 0x94, 0xB9, 0x7E, 0x8C, 0xB9, 0x7C };
 
 String success;
 
-//Structure example to send data
-//Must match the receiver structure  Button.State
-//example "digitalWrite (LED, RxButton.State);"
-//example "TxButton.State = !M5.BtnA.wasPressed();"
 typedef struct struct_message {
   bool State;
 } struct_message;
@@ -68,7 +47,6 @@ void setup() {
 }
 
 void loop() {
-
   TxButton.State = digitalRead(Button);  //***this is where you tramsmit this units button state
   esp_err_t result = esp_now_send(broadcastAddress, (uint8_t *)&TxButton, sizeof(TxButton));
   if (result == ESP_OK) {
