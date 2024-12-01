@@ -2,7 +2,7 @@
 #include <WiFi.h>
 #define LED 10     // or whatever you have
 #define Button 37  // or whatever you have
-//Address of THIS unit below:
+//MAC Address of the OTHER board below:
 uint8_t broadcastAddress[] = { 0x94, 0xB9, 0x7E, 0x8C, 0xB9, 0x7C };
 
 String success;
