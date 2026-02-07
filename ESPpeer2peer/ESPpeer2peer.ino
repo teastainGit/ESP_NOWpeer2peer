@@ -43,7 +43,8 @@ void setup() {
     return;
   }
   // Register for a callback function that will be called when data is received
-  esp_now_register_recv_cb(OnDataRecv);
+  //esp_now_register_recv_cb(OnDataRecv); // old style
+  esp_now_register_recv_cb(esp_now_recv_cb_t(OnDataRecv));
   delay(1000);
 }
 
@@ -74,4 +75,4 @@ void OnDataSent(const uint8_t *mac_addr, esp_now_send_status_t status) {
   } else {
     success = "Delivery Fail :(";
   }
-}
+} 
