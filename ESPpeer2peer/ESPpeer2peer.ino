@@ -32,7 +32,7 @@ void setup() {
     return;
   }
   // get the status of Trasnmitted packet
-  esp_now_register_send_cb(OnDataSent);
+  esp_now_register_send_cb(esp_now_send_cb_t(OnDataSent));
 
   memcpy(peerInfo.peer_addr, broadcastAddress, 6);
   peerInfo.channel = 0;
@@ -75,4 +75,4 @@ void OnDataSent(const uint8_t *mac_addr, esp_now_send_status_t status) {
   } else {
     success = "Delivery Fail :(";
   }
-} 
+}
