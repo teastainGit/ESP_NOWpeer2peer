@@ -10,6 +10,9 @@ i.e. type '0' into the serial window the other board will display ASCII 48 decim
 in its serial stream...and vice versa
 contact teastain@me.com for assistance
 */
+//made with Arduino IDE ver 2.3.10
+//esp32 boards ver3.3.10
+
 
 // MAC of the this 'board A':  34:b7:da:56:60:3c
 #include <esp_now.h>
